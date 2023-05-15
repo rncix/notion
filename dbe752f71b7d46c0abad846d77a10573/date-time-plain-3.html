@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      @font-face { font-family: pixel10; src: url('ark-pixel-10px-monospaced-ja.otf'); }
+      @font-face { font-family: pixel12; src: url('ark-pixel-12px-monospaced-ja.otf'); }
+      @font-face { font-family: pixel16; src: url('ark-pixel-16px-monospaced-ja.otf'); } 
+      .container {
+        
+      }
+      .date {
+        color: #424242;
+        text-transform: uppercase;
+        border-radius:10px;
+        width:fit-content;
+        padding-right:15px;
+        min-height: 72px;
+        min-width:200px;
+        line-height:10px;
+        font-size: 13px;
+        font-family: pixel16;
+      }
+
+      .datecontainer {
+        background-color:#efe9ad;
+        border-radius:10px;
+        padding-left:5px;
+        padding-right:6px;
+        line-height:5px;
+        height:10px;
+        width:fit-content;
+            }
+
+
+      .fruit{
+        width:15px;
+        margin-bottom:-3px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="date">
+      <span class="fruitbox"><img src="3.png" class="fruit"></span><br><br><br>
+      <div class ="datecontainer"><span class="dayweek"></span><br></div><br>
+      <div class ="datecontainer"><span class="day"></span> <span class="month"></span> <span class="year"></span></div><br>
+      <div class ="datecontainer"><span class="time"></span></div>
+    </div>
+    <script>
+      const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+      const daysOfWeek = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];
+
+      const dateElement = document.querySelector('.date');
+      const dayElement = dateElement.querySelector('.day');
+      const monthElement = dateElement.querySelector('.month');
+      const yearElement = dateElement.querySelector('.year');
+      const dayOfWeekElement = dateElement.querySelector('.dayweek');
+      const timeElement = dateElement.querySelector('.time');
+
+      function updateTime() {
+        const now = new Date();
+        dayElement.textContent = now.getDate();
+        monthElement.textContent = months[now.getMonth()];
+        yearElement.textContent = now.getFullYear();
+        dayOfWeekElement.textContent = daysOfWeek[now.getDay()]; timeElement.textContent = now.toLocaleTimeString([], {hourCycle: 'h12', hour: 'numeric', minute: 'numeric', hour12: true});
+
+      }
+
+      updateTime();
+      setInterval(updateTime, 1000); 
+    </script>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      @font-face { font-family: pixel10; src: url('ark-pixel-10px-monospaced-ja.otf'); }
+      @font-face { font-family: pixel12; src: url('ark-pixel-12px-monospaced-ja.otf'); }
+      @font-face { font-family: pixel16; src: url('ark-pixel-16px-monospaced-ja.otf'); } 
+      .container {
+        
+      }
+      .date {
+        color: #424242;
+        text-transform: uppercase;
+        border-radius:10px;
+        width:fit-content;
+        padding-right:15px;
+        min-height: 72px;
+        min-width:200px;
+        line-height:10px;
+        font-size: 13px;
+        font-family: pixel16;
+      }
+
+      .fruit {
+  width: 15px;
+  margin-bottom: -3px;
+}
+
+.datecontainer {
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 6px;
+  height: 10px;
+  width: fit-content;
+  line-height: 5px;
+  font-size: 13px;
+  font-family: pixel16;
+}
+.datecontainer2 {
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 6px;
+  height: 10px;
+  width: fit-content;
+  line-height: 5px;
+  font-size: 13px;
+  font-family: pixel16;
+}
+.datecontainer3 {
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 6px;
+  height: 10px;
+  width: fit-content;
+  line-height: 5px;
+  font-size: 13px;
+  font-family: pixel16;
+}
+    </style>
+  </head>
+  <body>
+    <div class="date">
+        <span class="fruitbox"><img src="0.png" class="fruit"></span><br><br><br>
+        <div class ="datecontainer"><span class="dayweek"></span><br></div><br>
+        <div class ="datecontainer2"><span class="day"></span> <span class="month"></span> <span class="year"></span></div><br>
+        <div class ="datecontainer3"><span class="time"></span></div>
+    </div>
+    
+    <script>
+      const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+      const daysOfWeek = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];
+
+      const fruitStyles = [
+  {
+    fruit: '0.png',
+    backgroundColor: '#f2d6d6'
+  },
+  {
+    fruit: '4.png',
+    backgroundColor: '#f3d5d5'
+  },
+  {
+    fruit: '7.png',
+    backgroundColor: '#f8ddd1'
+  },
+  {
+    fruit: '2.png',
+    backgroundColor: '#f2dfa1'
+  },
+  {
+    fruit: '3.png',
+    backgroundColor: '#efe9ad'
+  },
+  {
+    fruit: '1.png',
+    backgroundColor: '#f7efcb'
+  },
+  {
+    fruit: '6.png',
+    backgroundColor: '#d2dfce'
+  },
+  {
+    fruit: '8.png',
+    backgroundColor: '#cfd6f0'
+  }
+];
+
+      const dateElement = document.querySelector('.date');
+      const dayElement = dateElement.querySelector('.day');
+      const monthElement = dateElement.querySelector('.month');
+      const yearElement = dateElement.querySelector('.year');
+      const dayOfWeekElement = dateElement.querySelector('.dayweek');
+      const timeElement = dateElement.querySelector('.time');
+
+      function updateTime() {
+        const now = new Date();
+        dayElement.textContent = now.getDate();
+        monthElement.textContent = months[now.getMonth()];
+        yearElement.textContent = now.getFullYear();
+        dayOfWeekElement.textContent = daysOfWeek[now.getDay()]; timeElement.textContent = now.toLocaleTimeString([], {hourCycle: 'h12', hour: 'numeric', minute: 'numeric', hour12: true});
+
+      }
+
+      updateTime();
+      setInterval(updateTime, 1000); 
+
+      let index = 0;
+
+    function updateFruit() {
+      const fruitElement = dateElement.querySelector('.fruit');
+      const fruitStyle = fruitStyles[index];
+      fruitElement.src = fruitStyle.fruit;
+      
+      const dateContainerElement = dateElement.querySelector('.datecontainer');
+      dateContainerElement.style.backgroundColor = fruitStyle.backgroundColor;
+      
+      const dateContainer2Element = dateElement.querySelector('.datecontainer2');
+      dateContainer2Element.style.backgroundColor = fruitStyle.backgroundColor;
+      
+      const dateContainer3Element = dateElement.querySelector('.datecontainer3');
+      dateContainer3Element.style.backgroundColor = fruitStyle.backgroundColor;
+      
+      index++;
+      if (index >= fruitStyles.length) {
+        index = 0;
+      }
+    }
+
+    updateFruit();
+    setInterval(updateFruit, 60000);
+    </script>
+  </body>
+</html>
