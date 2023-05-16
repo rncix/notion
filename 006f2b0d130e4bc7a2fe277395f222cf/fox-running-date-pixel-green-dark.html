@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <style>
+            
+   @font-face { font-family: pixel16; src: url('ark-pixel-16px-monospaced-ja.otf'); } 
+      .date {
+        font-size: 14px;
+        font-family: pixel16;
+        color: #ffffff;
+        text-transform: uppercase;
+        text-align:center;
+        padding-top:20px;
+      }
+
+        .fruit{
+          width:16px;
+          margin-bottom:-1px;
+        }
+                .game-container {
+                  box-shadow: rgb(159, 255, 135) 0px 4px;	
+                  width: 300px;
+	height: 80px;
+    background-color: #505050;
+    border-radius:20px;
+	position: relative;
+}
+#date {
+    
+}
+#fox {
+	width: 21px;
+	height: 16px;
+	position: absolute;
+	bottom: 25px;
+	left: 30px;
+}
+        </style>
+</head>
+<body>
+	<div class="game-container">
+        <div class="date">
+            <span class="day"></span>
+            <span class="month"></span>
+            <span class="year"></span>
+            <span class="fruitbox"><img src="grass.png" class="fruit"></span>
+            <span class="time"></span>
+          </div>
+		<img id="fox" src="1.png">
+	</div>
+<script>
+
+const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+
+      const dateElement = document.querySelector('.date');
+      const dayElement = dateElement.querySelector('.day');
+      const monthElement = dateElement.querySelector('.month');
+      const yearElement = dateElement.querySelector('.year');
+      const timeElement = dateElement.querySelector('.time');
+
+      function updateTime() {
+        const now = new Date();
+        dayElement.textContent = now.getDate();
+        monthElement.textContent = months[now.getMonth()];
+        yearElement.textContent = now.getFullYear();
+        timeElement.textContent = now.toLocaleTimeString();
+      }
+
+      setInterval(updateTime, 1000); 
+
+
+//fox script
+
+var fox = document.getElementById("fox");
+    var foxPosition = 0; // horizontal position of fox
+    var isMovingLeft = false; // whether fox is moving left or right
+    var movementInterval = null; // interval to move fox
+    var currentImageIndex = 0; // index of current fox image in animation sequence
+    
+    // function to update the fox image
+    function updateFoxImage() {
+        fox.src = (currentImageIndex + 1) + ".png";
+        currentImageIndex = (currentImageIndex + 1) % 8;
+    }
+    
+    // function to start moving fox left or right
+    function startMoving(event) {
+        if (event.keyCode === 37) { // left arrow key
+            isMovingLeft = true;
+        } else if (event.keyCode === 39) { // right arrow key
+            isMovingLeft = false;
+        } else {
+            return;
+        }
+        if (movementInterval === null) {
+            movementInterval = setInterval(moveFox, 30);
+        }
+    }
+    
+    // function to stop moving fox
+    function stopMoving(event) {
+        if ((event.keyCode === 37 && isMovingLeft) || (event.keyCode === 39 && !isMovingLeft)) {
+            isMovingLeft = null;
+            clearInterval(movementInterval);
+            movementInterval = null;
+            currentImageIndex = 0;
+            fox.src = "1.png";
+        }
+    }
+    
+    // function to move fox
+    function moveFox() {
+        var leftPosition = parseInt(fox.style.left) || 30;
+        if (isMovingLeft) {
+            if (leftPosition > 30) {
+                fox.style.left = (leftPosition - 2) + "px";
+                fox.style.transform = "scaleX(-1)"; // flip image horizontally
+                updateFoxImage();
+            }
+        } else {
+            if (leftPosition < 249) {
+                fox.style.left = (leftPosition + 2) + "px";
+                fox.style.transform = ""; // reset image flip
+                updateFoxImage();
+            }
+        }
+    }
+    
+    // add event listeners
+    document.addEventListener("keydown", startMoving);
+    document.addEventListener("keyup", stopMoving);</script></body>
+</html>
